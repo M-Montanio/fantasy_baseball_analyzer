@@ -24,11 +24,13 @@ def fetch_data(position, min_proj_ab):
 
     return df
 
-def calculate_value(df, categories)
+def calculate_value(df, categories):
+    df['total_value'] = 0
     for category in categories:
         mean = np.mean(df['{}'.format(category)])
         stand_dev = np.std(df['{}'.format(category)])
         df['{}_value'.format(category)] = (df['{}'.format(category)] - mean) / stand_dev
+        df['total_value'] += df['{}_value'.format(category)]
     return df
 
 def main():
