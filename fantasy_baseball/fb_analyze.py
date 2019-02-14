@@ -24,11 +24,21 @@ def fetch_data(position, min_proj_ab):
 
     return df
 
+def calculate_value(df, categories)
+    for category in categories:
+        mean = np.mean(df['{}'.format(category)])
+        stand_dev = np.std(df['{}'.format(category)])
+        df['{}_value'.format(category)] = (df['{}'.format(category)] - mean) / stand_dev
+    return df
+
 def main():
     position = '1B'
     min_proj_ab = 450
-    position_df = fetch_data(position, min_proj_ab)
-    position_df.head()
+
+    # category options are AB,R,HR,RBI,SB,AVG,OBP,H,2B,3B,BB,SO,SLG,OPS 
+    categories = ['R','HR','RBI','SB','OBP','SLG']
+    df = fetch_data(position, min_proj_ab)
+    df.head()
 
 
 if __name__ == "__main__":
