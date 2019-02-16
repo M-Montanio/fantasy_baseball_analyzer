@@ -48,16 +48,22 @@ def calculate_value(df, categories):
             df['{}_value'.format(category)] = (df['{}'.format(category)] - mean) / stand_dev
             df['total_value'] += df['{}_value'.format(category)]
 
+    df = df.sort_values(by=['total_value'], ascending=False)
+    
     return df
 
 def main():
     position = '1B'
+    num_drafted_at_pos = 50
     min_proj_ab = 450
     min_proj_starts_sp = 28
     min_proj_ip_rp = 50
 
     df, categories = fetch_data(position, min_proj_ab, min_proj_starts_sp, min_proj_ip_rp)
     df = calculate_value(df, categories)
+    if len(df) > num_drafted_at_pos:
+        df = df.head(num_drafted_at_pos)
+        df = calculate_value(df, categories)
     df.head()
 
 
